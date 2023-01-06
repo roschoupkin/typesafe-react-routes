@@ -1,7 +1,7 @@
 {
   "sideEffects": false,
   "name": "typesafe-react-routes",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "roschoupkin",
   "license": "UNLICENSED",
   "description": "Inspired by typesafe-react-router. Typesafe routes for react-router",
