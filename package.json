@@ -1,7 +1,7 @@
 {
-  "private": true,
+  "sideEffects": false,
   "name": "typesafe-react-routes",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": "roschoupkin",
   "license": "UNLICENSED",
   "description": "Inspired by typesafe-react-router. Typesafe routes for react-router",
@@ -18,13 +18,13 @@
     "lint": "eslint --fix .",
     "test:watch": "jest --watch",
     "test": "jest --watch=false --coverage",
+    "clean": "rm -rf lib es",
     "build:watch": "tsc --build --watch",
     "build:lib": "tsc --build tsconfig.lib.json",
     "build:es": "tsc --build tsconfig.es.json",
-    "build": "npm run build:lib & npm run build:es",
+    "build": "npm run clean & npm run build:lib & npm run build:es",
     "prepare": "husky install"
   },
-  "sideEffects": false,
   "engines": {
     "node": ">=14"
   },
@@ -35,6 +35,9 @@
     "lib",
     "es"
   ],
+  "peerDependencies": {
+    "typescript": "^4.0.0"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.0",
     "@commitlint/config-conventional": "^17.4.0",
