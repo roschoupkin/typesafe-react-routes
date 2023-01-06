@@ -76,23 +76,23 @@ describe('withQueryParams', () => {
   });
 });
 
-describe('withAddParts', () => {
+describe('extendWith', () => {
   test('with string part', () => {
-    const path = route('path').withAddParts('anywhere');
+    const path = route('path').extendWith('anywhere');
 
     expect(path.template()).toBe('/path/anywhere');
     expect(path.create({})).toBe('/path/anywhere');
   });
 
   test('with param part', () => {
-    const path = route('path').withAddParts(param('id'));
+    const path = route('path').extendWith(param('id'));
 
     expect(path.template()).toBe('/path/:id');
     expect(path.create({ id: '1' })).toBe('/path/1');
   });
 
   test('with mixed parts', () => {
-    const path = route('path').withAddParts(param('id'), 'do');
+    const path = route('path').extendWith(param('id'), 'do');
 
     expect(path.template()).toBe('/path/:id/do');
     expect(path.create({ id: '1' })).toBe('/path/1/do');

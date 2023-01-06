@@ -35,9 +35,7 @@ export class RouteCreator<TParts extends RouteParts<string>, TQuery extends stri
     ...query: Exclude<TQueryParams, TQuery>
   ) => new RouteCreator(this.parts, [...(this.query ?? []), ...query]);
 
-  public readonly withAddParts = <TPartsParams extends RouteParts<string>>(
-    ...parts: TPartsParams
-  ) =>
+  public readonly extendWith = <TPartsParams extends RouteParts<string>>(...parts: TPartsParams) =>
     new RouteCreator<[...TParts, ...TPartsParams], TQuery>([...this.parts, ...parts], this.query);
 }
 
