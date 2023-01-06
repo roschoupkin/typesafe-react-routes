@@ -23,6 +23,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/__tests__/**/*"]
+  "include": ["src/**/*"]
 }

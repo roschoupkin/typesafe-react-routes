@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig",
+  "exclude": ["**/__tests__/**/*"],
   "compilerOptions": {
     "outDir": "es",
     "module": "ESNext"

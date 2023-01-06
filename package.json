@@ -6,12 +6,14 @@
   "scripts": {
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "lint:check": "eslint --ext .js,.ts,.tsx .",
-    "lint": "eslint --fix --ext .js,.ts,.tsx .",
+    "lint:check": "eslint .",
+    "lint": "eslint --fix .",
     "test:watch": "jest --watch",
     "test": "jest --watch=false --coverage",
     "build:watch": "tsc --build --watch",
-    "build": "tsc --build",
+    "build:lib": "tsc --build tsconfig.lib.json",
+    "build:es": "tsc --build tsconfig.es.json",
+    "build": "npm run build:lib & npm run build:es",
     "prepare": "husky install"
   },
   "sideEffects": false,
