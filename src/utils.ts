@@ -22,11 +22,11 @@ export function convertQueryValue(value: URLQueryObjectBaseValue): string {
 }
 
 export function stringifyQuery(query: URLQueryObject) {
-  const searchParams = new URLSearchParams();
+  const urlSearchParams = new URLSearchParams();
 
-  Object.entries(query).forEach(([queryParamKey, queryParamValue]) => {
+  for (const [queryParamKey, queryParamValue] of Object.entries(query)) {
     const appendToSearchParams = (value: string) => {
-      searchParams.append(queryParamKey, value);
+      urlSearchParams.append(queryParamKey, value);
     };
 
     const valueList = ensureArray(queryParamValue)
@@ -36,7 +36,7 @@ export function stringifyQuery(query: URLQueryObject) {
     if (valueList.length > 0) {
       valueList.forEach(appendToSearchParams);
     }
-  });
+  }
 
-  return searchParams.toString();
+  return urlSearchParams.toString();
 }
