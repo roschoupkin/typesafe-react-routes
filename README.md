@@ -21,12 +21,25 @@ npm install typesafe-react-routes
 
 ## API
 
-## `route()`
+This package presents only two methods `route` and `param`
+
+### `param()`
+
+A method to separate static parts of route and dynamic:
+
+```tsx
+import { route, param } from 'typesafe-react-routes';
+
+route('item', param('id')); // Static part – item, dynamic part – id
+route('item', param('category'), param('id')); // Static part – item, dynamic parts – id and category
+```
+
+### `route()`
 
 The main method to create a typesafe route in react-router
 Includes methods `withQueryParams`, `extendWith`, `create` and `template`
 
-### `withQueryParams()`
+#### `withQueryParams()`
 
 Add required query params to your route:
 
@@ -37,7 +50,7 @@ route('item').withQueryParams('id'); // Now you should set query param 'id' for 
 route('items').withQueryParams('page'); // Now you should set query param 'page' for this route
 ```
 
-### `extendWith()`
+#### `extendWith()`
 
 Allows you to create several routes from one parent (base) route:
 
@@ -49,7 +62,7 @@ const edit = items.extendWith(param('id')); // Extended route for edit page
 const list = items.extendWith(param('tab')); // Extended route for list page
 ```
 
-### `create()`
+#### `create()`
 
 Protect you from incorrect route declaration:
 
@@ -65,7 +78,7 @@ route('item').withQueryParams('id').create({}); // Error, forget query param id
 route('item').withQueryParams('id').create({}, { id: 1 }); // Correct route creation
 ```
 
-### `template()`
+#### `template()`
 
 Return a template for routing for `Route` or `Redirect` component for example:
 
