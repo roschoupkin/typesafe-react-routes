@@ -4,6 +4,12 @@
   "version": "1.0.1",
   "author": "roschoupkin",
   "license": "UNLICENSED",
+  "keywords": [
+    "react",
+    "react-router",
+    "typescript",
+    "typesafe"
+  ],
   "description": "Inspired by typesafe-react-router. Typesafe routes for react-router",
   "homepage": "https://github.com/roschoupkin/typesafe-react-routes",
   "repository": {

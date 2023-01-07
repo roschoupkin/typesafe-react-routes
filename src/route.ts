@@ -1,8 +1,9 @@
 import { isPathParam } from './guards';
-import type { RouteParts, RouteCreateParams, RouteTemplate, QueryParams } from './types';
+import type { RouteParts, RouteTemplate } from './types';
 import { createTemplatePart, typedObjectKeys, stringifyQuery } from './utils';
+import { RouteCreateParams, RouteCreateQuery } from './types';
 
-export class RouteCreator<TParts extends RouteParts<string>, TQuery extends string[] = []> {
+export class RouteCreator<TParts extends RouteParts<string, string>, TQuery extends string[] = []> {
   private static readonly createQuery = stringifyQuery;
   private static readonly createTemplatePart = createTemplatePart;
 
@@ -19,7 +20,10 @@ export class RouteCreator<TParts extends RouteParts<string>, TQuery extends stri
     return `/${normalized.join('/')}` as RouteTemplate<TParts>;
   };
 
-  public readonly create = (params: RouteCreateParams<TParts>, query?: QueryParams<TQuery>) => {
+  public readonly create = (
+    params: RouteCreateParams<TParts>,
+    ...[query]: RouteCreateQuery<TQuery>
+  ) => {
     const baseParts = this.parts.map((part) => (isPathParam(part) ? params[part.param] : part));
     const baseUrl = ['', ...baseParts].join('/');
 
@@ -35,10 +39,12 @@ export class RouteCreator<TParts extends RouteParts<string>, TQuery extends stri
     ...query: Exclude<TQueryParams, TQuery>
   ) => new RouteCreator(this.parts, [...(this.query ?? []), ...query]);
 
-  public readonly extendWith = <TPartsParams extends RouteParts<string>>(...parts: TPartsParams) =>
+  public readonly extendWith = <TPartsParams extends RouteParts<string, string>>(
+    ...parts: TPartsParams
+  ) =>
     new RouteCreator<[...TParts, ...TPartsParams], TQuery>([...this.parts, ...parts], this.query);
 }
 
-export function route<TParts extends RouteParts<string>>(...parts: TParts) {
+export function route<TParts extends RouteParts<string, string>>(...parts: TParts) {
   return new RouteCreator(parts);
 }

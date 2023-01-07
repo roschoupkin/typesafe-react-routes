@@ -1,7 +1,7 @@
 import { isPathParam } from './guards';
 import type { RoutePart, URLQueryObject, URLQueryObjectBaseValue } from './types';
 
-export const createTemplatePart = (part: RoutePart<string>) =>
+export const createTemplatePart = (part: RoutePart<string, string>) =>
   isPathParam(part) ? `:${part.param}` : part;
 
 export const typedObjectKeys = <TObj extends Record<string, unknown>>(

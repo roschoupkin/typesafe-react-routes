@@ -15,8 +15,10 @@ export interface RouteParam<TParam extends string> {
   param: TParam;
 }
 
-export type RoutePart<TParam extends string> = RouteParam<TParam> | string;
-export type RouteParts<TParams extends string> = Array<RoutePart<TParams>>;
+export type RoutePart<TParam extends string, TPart extends string> = RouteParam<TParam> | TPart;
+export type RouteParts<TParams extends string, TPart extends string> = Array<
+  RoutePart<TParams, TPart>
+>;
 
 /**
  * Query params
@@ -37,19 +39,20 @@ export type QueryParams<TQuery extends string[]> = QueryParamsObject<TQuery> & U
  * Route methods types
  */
 
-export type RouteCreateParams<TParts extends RouteParts<string>> = TParts extends RouteParts<
-  infer TParams
->
-  ? Record<TParams, string>
-  : never;
+export type RouteCreateParams<TParts extends RouteParts<string, string>> =
+  TParts extends RouteParts<infer TParams, string> ? Record<TParams, string> : never;
+
+export type RouteCreateQuery<TQuery extends string[] = []> = TQuery extends []
+  ? [query?: QueryParams<[]>]
+  : [query: QueryParams<TQuery>];
 
 export type RouteTemplate<
-  TParts extends RouteParts<string>,
+  TParts extends RouteParts<string, string>,
   TTemplate extends string = ''
 > = TParts extends []
   ? TTemplate
   : TParts extends [infer TPart, ...infer TRest]
-  ? TRest extends RouteParts<string>
+  ? TRest extends RouteParts<string, string>
     ? RouteTemplate<
         TRest,
         TPart extends RouteParam<infer TParam>
